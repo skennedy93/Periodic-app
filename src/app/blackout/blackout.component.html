@@ -1,0 +1,2009 @@
+<div id="container-blackout" class="container-light">
+    <div class="blackout-header">
+    <h1 id="blackout" class="light-blackout">Blackout</h1>
+    <div id="image-box" class="light-box">
+    <fa-icon [icon]="faAngleDown">
+    </fa-icon>        
+    </div>
+
+    </div>
+  
+  <div class="blackout-content">
+    <p><b>Blackouts</b> are created on <b>Providers</b>, <b>Resources</b>, or <b>Bookables</b> and denote
+      inclusive instances of time when the associated object is unavailable.</p>
+  <p><b>Bookings</b> that require a blackedout object will be unavailable during the given time.</p>
+  <!-- <p><b>METHODS SUPPORTED</b>: create_blackout | get_blackout | get_blackouts | update_blackout | delete_blackout |
+      clear_blackouts</p> -->
+  <h2 class="tableh2">Methods Supported</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>METHOD</th>
+          <th>EXPLANATION</th>
+      </tr>
+      <tr>
+          <td>create_blackout</td>
+          <td>Blackouts prevent bookings from being made that involve the blackedout provider, resource or bookable. Use cases include blackingout a required employee for vacation or a sports field during certain seasons.</td>
+      </tr>
+      <tr>
+          <td>get_blackout</td>
+          <td>Returns the blackout object associated to the id sent.</td>
+      </tr>
+      <tr>
+          <td>get_blackouts</td>
+          <td>Returns all blackout objects within range.</td>
+      </tr>
+      <tr>
+          <td>update_blackout</td>
+          <td>Given a valid id and any other valid parameters, this call updates the specified blackout with the changes</td>
+      </tr>
+      <tr>
+          <td>delete_blackout</td>
+          <td>Given a valid id this call deletes the specified blackout object.</td>
+      </tr>
+      <tr>
+          <td>clear_blackouts</td>
+          <td>Deletes all blackout objects within the given range</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Required Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>start</td>
+          <td>A datetime string in YYYY-MM-DD HH:mm:ss format indicating when the blackout begins</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>end</td>
+          <td>A datetime string in YYYY-MM-DD HH:mm:ss format indicating when the blackout ends</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <th></th>
+          <th>AT LEAST ONE OF THE FOLLOWING REQUIRED</th>
+          <th></th>
+      </tr>
+      <tr>
+          <td>provider</td>
+          <td>The subdomain of the provider this Blackout affects</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>resources</td>
+          <td>A list of ids for Resource that are unavailable during this Blackout</td>
+          <td>array of strings</td>
+      </tr>
+      <tr>
+          <td>reservationtypes</td>
+          <td>A list of ids for Bookables that are unavailable during this Blackout</td>
+          <td>array of strings</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Optional Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>calendarid</td>
+          <td>calendar id to associate this Blackout to</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td>A description of the Blackout</td>
+          <td>sting</td>
+      </tr>
+      <tr>
+          <td>name</td>
+          <td>A mnemonic name for this Blackout</td>
+          <td>string</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Try some examples!</h2>
+  <button id="createBlackout" class="button"
+      onclick="createBlackout()">create_blackout</button>
+  <button id="getBlackout" class="button"
+      onclick="getBlackout()">get_blackout</button>
+  <button id="deleteBlackout" class="button"
+      onclick="deleteBlackout()">delete_blackout</button>
+  <h1>Bookables</h1>
+  <p><b>Bookables</b> are the services or experiences that <b>Providers</b> make available for booking.
+  </p>
+  <p><b>Bookbales</b> may have their own <b>Availability Frames</b> and the following other limitations on
+      their availability.</p>
+  <p><b>Bookables</b> may optionally have associated <b>Resources</b>. If <b>Resources</b> are associated,
+      the availability of the <b>Bookable</b> will be further constrained by the availability of the
+      required <b>Resources</b>.</p>
+  <!-- <p><b>METHODS SUPPORTED</b>: create_bookable | get_bookable | get_bookables | get_bookables_for_provider |
+      add_bookable_to_provider | remove_bookable_from_provider | update_bookable | delete_bookable</p> -->
+  <h2 class="tableh2">Methods Supported</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>METHOD</th>
+          <th>EXPLAINATION</th>
+      </tr>
+      <tr>
+          <td>create_bookable</td>
+          <td>Bookables are client facing entities that reservations are made against. Use cases for creating bookables include a provider that now offers something new or a provider that offers more that what it previously did. </td>
+      </tr>
+      <tr>
+          <td>get_bookable</td>
+          <td>Returns the bookable object associated to the id sent.</td>
+      </tr>
+      <tr>
+          <td>get_bookables</td>
+          <td>Returns all bookable objects for the current whitelabel</td>
+      </tr>
+      <tr>
+          <td>get_bookables_for_provider</td>
+          <td>Returns all bookable objects for the given provider</td>
+      </tr>
+      <tr>
+          <td>add_bookable_to_provider</td>
+          <td>Associates a bookable and a provider object</td>
+      </tr>
+      <tr>
+          <td>remove_bookable_from_provider</td>
+          <td>Removes an association from a bookable and a provider</td>
+      </tr>
+      <tr>
+          <td>update_bookable</td>
+          <td>Given a valid id and any other valid parameters this call updates the specified bookable with the changes</td>
+      </tr>
+      <tr>
+          <td>delete_bookable</td>
+          <td>Given a valid id this call deletes the specified bookable object</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Required Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>newavailability</td>
+          <td>A list JSON objects each representing a chunk of the recurring weekly availability of this
+              Bookable. This includes 'startday' and 'endday' - each strings - which should be a day of
+              the week ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday').
+              Additionally, it should specify a 'starthour', 'startminute', 'startsecond', 'endhour',
+              'endminute', 'endsecond' - all integers representing time on a 24-hour clock. (This is not
+              strictly required to create a bookable, however it is an integral part of definiting
+              appointments. If not included, availability will default to 8am-5pm on weekdays.)</td>
+          <td>array of objects</td>
+      </tr>
+      <tr>
+          <td>name</td>
+          <td>The name of the Bookable to be displayed to end users.</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>provider</td>
+          <td>The subdomain of the Provider to which this Bookable belongs. Can be passed via the
+              subdomain in the URL, via the x-periodic-provider header, or as a key value pair. </td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td>A concise description of the Bookable to be displayed to end users </td>
+          <td>string</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Optional Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>addons</td>
+          <td>(Advanced use) Objects that can be included with a booking to refine the experience. Addons
+              do not affect availability, but they can affect the price or duration of an appointment</td>
+          <td>array of objects</td>
+      </tr>
+      <tr>
+          <td>addon_groups</td>
+          <td>(Advanced use) Groups of addons that need to be displayed together on the bookingsite</td>
+          <td>array of objects</td>
+      </tr>
+      <tr>
+          <td>addon_stages</td>
+          <td>(Advanced use) Logical groupings of related addongroups that need to be displayed together
+              on the bookingsite</td>
+          <td>array of objects</td>
+      </tr>
+      <tr>
+          <td>approvalmode</td>
+          <td>A flag that, when set to true, requires an administrator user to approve appointments on
+              this bookable after the customer has booked. False by default</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>billinginstructions</td>
+          <td>A field to store a message about any additional information a customer may need after an
+              appointment involving this Bookable</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>bookabletype</td>
+          <td>One of 'standard' or 'calendarday'. ('standard' by default.) Determines whether the bookable
+              is bookable by the day ('calendarday'), or for a custom, user-defined amount of time
+              ('standard')</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>bookinglimit</td>
+          <td>The maximum total number of reservations that can be booked on this bookable at any time. If
+              set to 0, there is no limit (i.e. the limit is 'turned off'). Set to 0 by default</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>bookingmode</td>
+          <td>(For advanced use.) This affects the order in which a customer is prompted for information
+              about the appointment and is not documented here. Please contact a sales representative for
+              more information</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>combinedslots</td>
+          <td>A flag that, when set, collapses multiple consecutive timeslots into a single, expanded
+              reservation that starts with the earliest timeslot and ends with the latest. Basically, this
+              is a way to allow users to book more than one timeslot in a booking</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>confirmmode</td>
+          <td>A flag that, when set, requires a customer to confirm an appointment (by clicking a link
+              sent via email) before it is fully booked. False by default</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>customermax</td>
+          <td>The maximum number of upcoming appoinments an individual customer may have on this bookable
+          </td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>customlink</td>
+          <td>A user-defined alias path for the bookable's directbooking site</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>downpaymentamount</td>
+          <td>A currency amount that is due at the time of booking</td>
+          <td>number</td>
+      </tr>
+      <tr>
+          <td>displayend</td>
+          <td>For all-day bookables (bookables with 'bookabletype' set to 'calendarday'), the time of day
+              at which the customer is told the appointment ends. This functions like a checkout time at a
+              hotel and is for display purposes only</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>drivetime</td>
+          <td>When set to a number larger than 0, before allowing a booking the system will check all
+              reservations that fall within this number of seconds on either side of the proposed
+              reservation and have a designated 'address' question to make sure that there is enough drive
+              time between them. If driving from the address on any reservation to the proposed
+              reservation's location would take longer than the time between the two appointments, the
+              proposed reservation will be rejected</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>duration</td>
+          <td>The length of the appointment in seconds. Set to 3600 (1 hour) by default. Only applicable
+              to bookables with 'bookabletype' set to 'standard'</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>frequency</td>
+          <td>An interval in seconds at which appointment starttimes are generated. This is useful for
+              generating overlapping appointment times - for example, a tour that lasts and hour but
+              departs every 15min. In the default case, this is simply the same as the appointment
+              duration</td>
+          <td>number</td>
+      </tr>
+      <tr>
+          <td>holdduration</td>
+          <td>The number of seconds this appointment is held pending customer confirmation. Assumed to be
+              0 when not set</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>mincombined</td>
+          <td>If 'combined' is set, this defines the minimum number of timeslots that a user must select
+              in order to successfully book an appointment</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>maxcombined</td>
+          <td>If 'combined' is set, this defines the maximum number of timeslots that a user can select
+              for a single appointment</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>notifications</td>
+          <td></td>
+          <td>object</td>
+      </tr>
+      <tr>
+          <td>paddingduration</td>
+          <td>The number of seconds in down time between discrete timeslots that are available for this
+              bookable. For example, if you specify a duration of 2700 and a paddingduration of 900, your
+              bookable will be available every hour for 45 minutes with a 15min. break at the end of each
+              appointment</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>paymentterms</td>
+          <td>Instructions to the customer conerning how to pay for this appointment - what kind of
+              payment is due at what time using what method, etc</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>photo</td>
+          <td>A URL linked to a logo/picture file for display with this bookable on the bookingsite</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>price</td>
+          <td>A currency amount that appointments involving this Bookable cost</td>
+          <td>number</td>
+      </tr>
+      <tr>
+          <td>questions</td>
+          <td>Specifications of questions that the customer will be prompted to answer upon booking an
+              appointment involving this Bookable. This is a useful way to gather information about your
+              customer that may be necessary to setting up the appointment</td>
+          <td>array of objects</td>
+      </tr>
+      <tr>
+          <td>requiredresources</td>
+          <td>A list of the ids of any Resources that MUST be available in order to book an appointment
+              through this Bookable. See the Resource section of this documentation for more information
+              about Resources</td>
+          <td>array of strings</td>
+      </tr>
+      <tr>
+          <td>requirementgroups</td>
+          <td>(Advanced use.) Groups of resources, some minimum number from which must be available in
+              order to book an appointment through this Bookable. This is not directly documented here
+          </td>
+          <td>array of objects</td>
+      </tr>
+      <tr>
+          <td>restrictions</td>
+          <td>A list of objects, each of which has a 'start' and an 'end' member, the value of which is a
+              string in YYYY-MM-DD format indicating a start/end date. If this list is not empty, the
+              bookable will only be available during the intervals defined by these dates</td>
+          <td>array of objects</td>
+      </tr>
+      <tr>
+          <td>seats</td>
+          <td>The number of simultaneous or overlapping appointments that can be booked on this Bookable
+          </td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>seatsperbooking</td>
+          <td>The maximum number of appointments through this Bookable that a customer can book in a
+              single session</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>stageselector</td>
+          <td></td>
+          <td>array of objects</td>
+      </tr>
+      <tr>
+          <td>status</td>
+          <td>One of 'active', 'inactive', 'archived', 'hidden'. 'Active' bookables are visible to the
+              public. 'Inactive' bookables are temporarily disabled for booking and will not show up on
+              the bookingsite. 'Archived' bookables are not visible on the bookingsite or dashboard but
+              are available to be reactivated for future use. 'Hidden' bookables are available for booking
+              but only via the directbooking link, not through the general public-facing dashboard</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>slug</td>
+          <td>A user-defined unique identifier for this bookable</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>tags</td>
+          <td>Keywords associated with this Bookable. Tags enable Bookables to be grouped according to
+              function or service for search purposes</td>
+          <td>array of strings</td>
+      </tr>
+      <tr>
+          <td>thankyoumessage</td>
+          <td>A message displayed to a customer on the bookingsite when a booking is successful</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>waitlistenabled</td>
+          <td>Whether or not waitlists are enabled for this bookable (false by default)</td>
+          <td>boolean</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Try some examples!</h2>
+  <button id="createBookable" class="button" onclick="createBookable()">create_bookable</button>
+  <button id="createDetailedBookable" class="button" onclick="createDetailedBookable()">create_bookable (detailed)</button>
+  <button id="getBookable" class="button" onclick="getBookable()">get_bookable</button>
+  <button id="deleteBookable" class="button" onclick="deleteBookable()">delete_bookable</button>
+  <h1>Forms</h1>
+  <p><b>Forms</b> gather customer information pertaining to their <b>Reservation</b> at the time of <b>Booking</b>.</p>
+  <p><b>Forms</b> consit of <b>Form Questions</b>, <b>Response Options</b> and <b>Sections</b> which all allow for custom <b>Forms</b> to be created and served to <b>Customers</b>.</p>
+  <!-- <p><b>METHODS SUPPORTED</b>: create_form | get_form | get_forms | get_forms_for_provider | update_form | delete_form</p> -->
+  <h2 class="tableh2">Methods Supported</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>METHOD</th>
+          <th>EXPLAINATION</th>
+      </tr>
+      <tr>
+          <td>create_form</td>
+          <td>Forms hold questions and are served to clients as a means of gathering data, usually for an upcoming reservation</td>
+      </tr>
+      <tr>
+          <td>get_form</td>
+          <td>Returns the form object associated to the id sent</td>
+      </tr>
+      <tr>
+          <td>get_forms</td>
+          <td>Returns all form objects for the given whitelabel</td>
+      </tr>
+      <tr>
+          <td>get_forms_for_provider</td>
+          <td>Returns all form objects for the given provider</td>
+      </tr>
+      <tr>
+          <td>update_form</td>
+          <td>Given a valid id and any other valid parameters this call updates the specified form with the changes</td>
+      </tr>
+      <tr>
+          <td>delete_form</td>
+          <td>Given a valid id this call deletes the specified form object</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Required Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>name</td>
+          <td>Display name for dashboard reference</td>
+          <td>string</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Optional Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td>a description of the form</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>imageurl</td>
+          <td>url to a cover image for the form</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>order</td>
+          <td>optional value that can be used to order display</td>
+          <td>integer</td>
+      </tr>
+      <tr>
+          <td>providers</td>
+          <td>subdomains of providers on which this form is visible for selection</td>
+          <td>array of strings</td>
+      </tr>
+      <tr>
+          <td>sections</td>
+          <td>a list of section ids that this form contains</td>
+          <td>array of strings</td>
+      </tr>
+      <tr>
+          <td>title</td>
+          <td>Display name for bookingsite</td>
+          <td>string</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Try some examples!</h2>
+  <button id="createForm" class="button" onclick="createForm()">create_form</button>
+  <button id="getForm" class="button" onclick="getForm()">get_form</button>
+  <button id="deleteForm" class="button" onclick="deleteForm()">delete_form</button>
+  <h1>Form Questions</h1>
+  <p><b>Form Questions</b> are the various question types that exist on <b>Forms</b> to help gather customer responses.</p>
+  <p><b>Form Questions</b> have a <b>Question Type</b> field which allows for various types of <b>Questions</b> to be asked. </p>
+  <!-- <p><b>METHODS SUPPORTED</b>: create_form_question | get_form_question | get_form_questions | get_form_questions_for_provider | get_form_questions_for_section | update_form_question | delete_form_question | add_form_question_to_section | remove_form_question_from_section</p> -->
+  <h2 class="tableh2">Methods Supported</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>METHOD</th>
+          <th>EXPLAINATION</th>
+      </tr>
+      <tr>
+          <td>create_form_question</td>
+          <td>Form Questions are the individual questions that exist on a form object</td>
+      </tr>
+      <tr>
+          <td>get_form_question</td>
+          <td>Returns the form question object associated to the id sent</td>
+      </tr>
+      <tr>
+          <td>get_form_questions</td>
+          <td>Returns all form question objects for the given whitelabel</td>
+      </tr>
+      <tr>
+          <td>get_form_questions_for_provider</td>
+          <td>Returns all form question objects on the given provider</td>
+      </tr>
+      <tr>
+          <td>get_form_questions_for_section</td>
+          <td>Returns all form question objects on the given section</td>
+      </tr>
+      <tr>
+          <td>update_form_question</td>
+          <td>Given a valid id and any other valid parameters this call updates the specified form question with the changes</td>
+      </tr>
+      <tr>
+          <td>delete_form_question</td>
+          <td>Given a valid id this call deletes the specified form question object</td>
+      </tr>
+      <tr>
+          <td>add_form_question_to_section</td>
+          <td>Associates a form question and a section object</td>
+      </tr>
+      <tr>
+          <td>remove_form_question_from_section</td>
+          <td>Removes an association from a form question and a section object</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Optional Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>capacity_relevant</td>
+          <td>flag indicating whether this question figures in to capacity determination</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>default_response</td>
+          <td>id of the responseoption that is selected by default for this question</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td>A description of the form question</td>
+          <td>sting</td>
+      </tr>
+      <tr>
+          <td>designated</td>
+          <td>flag that determines whether the response to this question is used to determine things like email destination for notifications</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>display_function</td>
+          <td>string to be evaluated to a javascript function that accepts a context object and returns a boolean indicating whether this should be displayed</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>errormessage</td>
+          <td>error message to display to the user on invalid input</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>imageurl</td>
+          <td>url to a cover image for the question</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>internal</td>
+          <td>flag that determines whether this question displays to the user or only to dashboard admins</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>mapping</td>
+          <td>string that is used as a key to store this question's response value on the user's profile</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>misc</td>
+          <td>dump for miscelaneous information</td>
+          <td>object</td>
+      </tr>                        
+      <tr>
+          <td>name</td>
+          <td>A mnemonic name for this Blackout</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>order</td>
+          <td>optional value that can be used to order display</td>
+          <td>int</td>
+      </tr>
+      <tr>
+          <td>placeholder</td>
+          <td>placeholder for display - usually a sample answer or some kind of instructions</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>prompt</td>
+          <td>short string to display to the user indicating how to answer the question</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>profileenabled</td>
+          <td>flag indicating whether this question's response should be saved to the user profile</td>
+          <td>boolean</td>
+      </tr>                        
+      <tr>
+          <td>questiontype</td>
+          <td>a restricted array of types - mostly useful for instructing the bookingsite how to display this quesiton</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>regexvalidator</td>
+          <td>regular expression to validate input</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>required</td>
+          <td>flag indicating whether the user must answer this form_question to complete the appointment</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>responseoptions</td>
+          <td>ids of responseoption objects associated with this form_quesiton</td>
+          <td>array of string</td>
+      </tr>                        
+      <tr>
+          <td>rosterquestion</td>
+          <td>flag indicating whether this question is used to gather information for lists of attendees</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>slug</td>
+          <td>human-readable unique identifier</td>
+          <td>string</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Try some examples!</h2>
+  <button id="createFormQuestion" class="button" onclick="createFormQuestion()">create_form_question</button>
+  <button id="getFormQuestion" class="button" onclick="getFormQuestion()">get_form_question</button>
+  <button id="deleteFormQuestion" class="button" onclick="deleteFormQuestion()">delete_form_question</button>
+  <h1>Message Notifications</h1>
+  <p><b>Message Notifications</b> hold who the <b>Message</b> should be received by, who sent the <b>Message</b>, and what caused the <b>Message</b> to send.</p> 
+  <p><b>Message Notifications</b> can only be sent if they are associated to a <b>Message Template</b>, as that dictates the content of the <b>Message</b> and specifies by what means the <b>Message</b> is sent through.</p>
+  <!-- <p><b>METHODS SUPPORTED</b>: create_messagenotification | get_messagenotification | get_messagenotifications | get_messagenotifications_for_bookable | get_messagenotifications_for_provider | update_messagenotification | delete_messagenotification | send_messagenotification | add_messagenotification_to_bookable | remove_messagenotification_from_bookable | add_messagenotification_to_provider | remove_messagenotification_from_provider</p> -->
+  <h2 class="tableh2">Methods Supported</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>METHOD</th>
+          <th>EXPLAINATION</th>
+      </tr>
+      <tr>
+          <td>create_messagenotification</td>
+          <td>Message Notifications hold things like recipients and a template. They determine what object (template) gets sent where (recipients)</td>
+      </tr>
+      <tr>
+          <td>get_messagenotification</td>
+          <td>Returns the message notification object associated to the id sent</td>
+      </tr>
+      <tr>
+          <td>get_messagenotifications</td>
+          <td>Returns all message notification objects for the current whitelabel</td>
+      </tr>
+      <tr>
+          <td>get_message_notifications_for_bookable</td>
+          <td>Returns all message notification objects associated to the given bookable</td>
+      </tr>
+      <tr>
+          <td>get_messagenotifications_for_provider</td>
+          <td>Returns all message notification objects associated to the given provider</td>
+      </tr>
+      <tr>
+          <td>update_messagenotification</td>
+          <td>Given a valid id and any other valid parameters this call updates the specified message notification with the changes</td>
+      </tr>
+      <tr>
+          <td>delete_messagenotification</td>
+          <td>Given a valid id this call deletes the specified message notification object</td>
+      </tr>
+      <tr>
+          <td>add_messagenotification_to_bookable</td>
+          <td>Associates a message notification and a bookable object</td>
+      </tr>
+      <tr>
+          <td>remove_messagenotification_from_bookable</td>
+          <td>Removes an association from a message notification and a bookable</td>
+      </tr>
+      <tr>
+          <td>add_messagenotification_to_provider</td>
+          <td>Associates a message notification and a provider object</td>
+      </tr>
+      <tr>
+          <td>remove_messagenotification_from_provider</td>
+          <td>Removes an association form a message notification and a provider</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Required Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>interval</td>
+          <td>The frequency at which this notification is sent</td>
+          <td>object</td>
+      </tr>
+      <tr>
+          <td>recipients</td>
+          <td>A list of either phone numbers or emails to send this notification to</td>
+          <td>array of stings</td>
+      </tr>
+      <tr>
+          <td>sender</td>
+          <td>Who this email or sms is coming from</td>
+          <td>string</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Optional Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>template</td>
+          <td>Associated messagetemplate id to couple with this notification</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>trigger</td>
+          <td>The condition that causes this notification to send</td>
+          <td>string</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Try some examples!</h2>
+  <button id="createMessageNotification" class="button" onclick="createMessageNotification()">create_messagenotification</button>
+  <button id="getMessageNotification" class="button" onclick="getMessageNotification()">get_messagenotification</button>
+  <button id="deleteMessageNotification" class="button" onclick="deleteMessageNotification()">delete_messagenotification</button>
+  <h1>Message Template</h1>
+  <p><b>Message Templates</b> are associated to <b>Message Notifications</b> and are the content of <b>Notifications</b>. For email <b>Notifications</b>, the body field of the <b>Message Template</b> may be filled with either plain text or html. For sms <b>Notifications</b>, all content will be sent as if it were plain text.</p>
+  <!-- <p><b>METHODS SUPPORTED</b>: create_messagetemplate | get_messagetemplate | update_messagetemplate | delete_messagetemplate</p> -->
+  <h2 class="tableh2">Methods Supported</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>METHOD</th>
+          <th>EXPLAINATION</th>
+      </tr>
+      <tr>
+          <td>create_messagetemplate</td>
+          <td>Message Templates hold the content of the message. When they are sent via email, content in the body will be sent as HTML</td>
+      </tr>
+      <tr>
+          <td>get_messagetemplate</td>
+          <td>Returns the message template object associated to the id sent</td>
+      </tr>
+      <tr>
+          <td>update_messagetemplate</td>
+          <td>Given a valid id and any other valid parameters this call updates the specified message template with the changes</td>
+      </tr>
+      <tr>
+          <td>delete_messagetemplate</td>
+          <td>Given a valid id this call deletes the associated message template object</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Required Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>body</td>
+          <td>Content of the message to send to all recipients</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>footer</td>
+          <td>Footer to send if messagetype is email</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>header</td>
+          <td>Header to send if messagetype is email</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>messagenotificationid</td>
+          <td>associated messagenotification id couple with this template</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>subject</td>
+          <td>Subject to send if messagetype is email</td>
+          <td>string</td>
+      </tr>
+  </table>
+  <h2 class="tableh2">Optional Attributes</h2>
+  <table class="highLevelTable">
+      <tr>
+          <th>ATTRIBUTE</th>
+          <th>EXPLANATION</th>
+          <th>TYPE</th>
+      </tr>
+      <tr>
+          <td>messagetype</td>
+          <td>Email or sms</td>
+          <td>string</td>
+      </tr>
+      <!-- <tr>
+          <td>notification</td>
+          <td>ddd</td>
+          <td>string</td>
+      </tr> -->
+  </table>
+  <h2 class="tableh2">Try some examples!</h2>
+  <button id="createMessageTemplate" class="button" onclick="createMessageTemplate()">create_messagetemplate</button>
+  <button id="getMessageTemplate" class="button" onclick="getMessageTemplate()">get_messagetemplate</button>
+  <button id="deleteMessageTemplate" class="button" onclick="deleteMessageTemplate()">delete_messagetemplate</button>
+  <h1>Providers</h1>
+  <p><b>Providers</b> are entites that offer bookable services.</p>
+  <p><b>Providers</b> are usually businesses or locations, but they can also be departments, programs or more
+      abstract entites with no physical presence at all.</p>
+  <p><b>Providers</b> make services available for booking in the form of <b>Bookables</b>.</p>
+  <p><b>Bookables</b> set the rules for how units of booking time (timeslots) are created, and what the limits
+      on booking them are. See the <b>Bookable</b> section for more details.</p>
+  <p><b>Providers</b> also optionally maintain <b>Resources</b>. See the <b>Resources</b> sections for
+      details.</p>
+  <!-- <p><b>METHODS SUPPORTED</b>: currently only create_provider and get_provider. Remaing CRUD methods to be
+      added shortly.</p> -->
+      <h2 class="tableh2">Methods Supported</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>METHOD</th>
+              <th>EXPLAINATION</th>
+          </tr>
+          <tr>
+              <td>create_provider</td>
+              <td>Providers offer bookables to clients. Potential use cases for creating a provider could be a new group or individual offering service in a new location or capacity. </td>
+          </tr>
+          <tr>
+              <td>update_provider</td>
+              <td>Given a valid id and any other valid parameters this call updates the specified provider with the changes</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Required Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>name</td>
+              <td>The name of the Provider to be displayed to end users.</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>email</td>
+              <td>The email address of the user account that will be automatically created for this provider.
+                  By default, this will double as the username for this account for the purposes of logging in
+                  to the web-based dashboard.</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>firstname</td>
+              <td>The first name of the user on the associated user account.</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>lastname</td>
+              <td>The last name of the user on the associated user account.</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>subdomain</td>
+              <td>The unique (to the marketplace) subdomain that identifies the provider's bookingsite. This
+                  idenfitifer is also used as the base URL for provider-related API calls. For example, if
+                  your subdomain is myuniqesubdomain, then the URL of your bookingsite is
+                  http://myuniquesubdomain.periodic.is and API calls are made against
+                  http://myuniquesubdomain.periodic.is/api</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Optional Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>active</td>
+              <td>Indicates whether this provider is visible to the general public</td>
+              <td>boolean</td>
+          </tr>
+          <tr>
+              <td>address</td>
+              <td>The street and number of the physical or mailing address of the Provider</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>agreementterms</td>
+              <td>Text explaining the terms that customers must agree to before booking an appointment with
+                  this provider</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>blackouts</td>
+              <td>Blackouts are times/dates during which the provider is not available for booking</td>
+              <td>array of objects</td>
+          </tr>
+          <tr>
+              <td>bookablerequestenabled</td>
+              <td>A flag indicating whether third parties are able to access a public-facing form for creating
+                  bookables on this provider</td>
+              <td>boolean</td>
+          </tr>
+          <tr>
+              <td>bookingsitepassword</td>
+              <td>Set this if you want to require users to enter a password to access your bookingsite</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>bookingcss</td>
+              <td>The name of a less or css file with custom style alterations for your booking site</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>bookinglogo</td>
+              <td>The url of an image file of the provider's logo</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>businesshours</td>
+              <td>A specification of the normal operating hours for the provider</td>
+              <td>object</td>
+          </tr>
+          <tr>
+              <td>billingstatus</td>
+              <td>Indicates if the provider is in good standing with cheddar. It can have a value of either
+                  active or suspended</td>
+              <td>enum</td>
+          </tr>
+          <tr>
+              <td>city</td>
+              <td>The name of the city in which the provider is located</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>coordinates</td>
+              <td>LatLong coordinates for displaying the provider's location on the map page. This should be a
+                  list of two strings, the first of which is latitude, the second of which is longitude</td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>custommessage</td>
+              <td>A tagline or description displayed to customers at the provider's bookingsite</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>datemessage</td>
+              <td>The text of the prompt on the bookingsite that asks a customer to select a date for the
+                  appointment</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>description</td>
+              <td>A description of the provider for internal use</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>latlong</td>
+              <td>LatLong coordinates for the provider. This should be a list of two strings, the first of
+                  which is latitude, the second of which is longitude</td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>missedappointmentmessage</td>
+              <td>The text of the message sent to the provider when an appointment is marked as missed</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>nobookablesmessage</td>
+              <td>The text of the message tha displays on the bookingsite when there are no active bookables
+                  (and so it is not currently possible to book an appointment). It is useful to think of this
+                  as a 'Coming Soon' message</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>notifications</td>
+              <td></td>
+              <td>array of objects</td>
+          </tr>
+          <tr>
+              <td>notificationsenabled</td>
+              <td></td>
+              <td>boolean</td>
+          </tr>
+          <tr>
+              <td>phone</td>
+              <td>The provider's main phone number</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>questions</td>
+              <td>A library of questions available for inclusion in the customer form on the booking site</td>
+              <td>array</td>
+          </tr>
+          <tr>
+              <td>requirementgroups</td>
+              <td>A list of the Requirement Groups for this provider</td>
+              <td>array of objects</td>
+          </tr>
+          <tr>
+              <td>reservationtypes</td>
+              <td>A list of the bookables associated with this provider</td>
+              <td>array of objects</td>
+          </tr>
+          <tr>
+              <td>reservationsperbooking</td>
+              <td>The maximum number of reservations a customer is allowed to book in a single session</td>
+              <td>integer</td>
+          </tr>
+          <tr>
+              <td>resourceinvitemessage</td>
+              <td>The email message sent to people who have been invited to manage a resource on this provider
+              </td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>resourceholdobjects</td>
+              <td>A list of any resource holds (resources that are reserved, over a particular time range,
+                  exclusively for use on one or more designated bookables</td>
+              <td>array of objects</td>
+          </tr>
+          <tr>
+              <td>resources</td>
+              <td>A list of the resource objects for this provider</td>
+              <td>array of objects</td>
+          </tr>
+          <tr>
+              <td>state</td>
+              <td>The state, province or locality in which this provider is located</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>submitbutton</td>
+              <td>The text that appears in the final confirm button that the user uses to execute</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>thankyoumessage</td>
+              <td>The text displayed to a customer upon successful booking on the bookingsite. (Can be
+                  overridden by a similar bookable setting.)</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>timemessage</td>
+              <td>The text of the message that prompts a customer to select a timeslot</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>timezone</td>
+              <td>A string reprsenting the time zone in which your appointments are booked</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>url</td>
+              <td>The provider's url</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>zip</td>
+              <td>The provider's zip or postal code</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>userinstructions</td>
+              <td>The text of instructions provided to a user immediately upon landing on the bookingsite</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>users</td>
+              <td>(DEPRECATED) A list of userids for users that have login or api access to this provider</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>whitelabel</td>
+              <td>The name of the marketplace to which this provider belong</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Try some examples!</h2>
+      <button id="createProvider" class="button"
+          onclick="createMinimalProvider()">create_provider (minimal)</button>
+      <button id="createProvider" class="button"
+          onclick="createProvider()">create_provider (standard)</button>
+      <button id="createProvider" class="button"
+          onclick="createDetailedProvider()">create_provider (detailed)</button>
+      <button id="getProvider" class="button" onclick="getProvider()">get_provider</button>
+      <h1>Requirement Groups</h1>
+      <p>This is where the <b>Requirement Group</b> description will go</p>
+      <!-- <p><b>METHODS SUPPORTED</b>: create_requirementgroup | get_requirementgroup | get_requirementgroups | get_requirementgroups_for_provider | get_requirementgroups_for_bookable | update_requirementgroup | delete_requirementgroup | add_requirementgroups_to_provider | remove_requirementgroups_from_provider | add_requirementgroups_to_bookable | remove_requirementgroups_from_bookable</p> -->
+      <h2 class="tableh2">Methods Supported</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>METHOD</th>
+              <th>EXPLAINATION</th>
+          </tr>
+          <tr>
+              <td>create_requirementgroup</td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>get_requirementgroup</td>
+              <td>Returns the requirement group object associated to the id sent</td>
+          </tr>
+          <tr>
+              <td>get_requirementgroups</td>
+              <td>Returns all requirement group objects for the current whitelabel</td>
+          </tr>
+          <tr>
+              <td>get_requirementgroups_for_provider</td>
+              <td>Returns all requirement group objects associated to the given provider</td>
+          </tr>
+          <tr>
+              <td>get_requirementgroups_for_bookable</td>
+              <td>Returns all requirement group objects associated to the given bookable</td>
+          </tr>
+          <tr>
+              <td>update_requirementgroup</td>
+              <td>Given a valid id and any other valid parameters this call updates the specified requirement group object</td>
+          </tr>
+          <tr>
+              <td>delete_requirementgroup</td>
+              <td>Given a valid id this call deletes the specified requirement group object</td>
+          </tr>
+          <tr>
+              <td>add_requirementgroups_to_provider</td>
+              <td>Associates a requirement group and a provider object</td>
+          </tr>
+          <tr>
+              <td>remove_requirementgroups_from_provider</td>
+              <td>Removes an association from a requirement group and a provider</td>
+          </tr>
+          <tr>
+              <td>add_requirementgroups_to_bookable</td>
+              <td>Associates a requirement group and a bookable object</td>
+          </tr>
+          <tr>
+              <td>remove_requirementgroups_from_bookable</td>
+              <td>Removes an association from a requirement group and a bookable</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Required Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>name</td>
+              <td>The name of the Requirement Group to be displayed to end users</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>provider</td>
+              <td>The subdomain of the Provider to which this Requirement Group belongs</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Optional Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>quantity</td>
+              <td>ddd</td>
+              <td>integer</td>
+          </tr>
+          <tr>
+              <td>resources</td>
+              <td>List of Resource ids to associate this Requirement Group to</td>
+              <td>array of string</td>
+          </tr>
+          <tr>
+              <td>selectionmethod</td>
+              <td>automatic, manual, checkin, or roundrobin</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Try some examples!</h2>
+      <button id="createRequirementGroup" class="button" onclick="createRequirementGroup()">create_requirementgroup</button>
+      <button id="getRequirementGroup" class="button" onclick="getRequirementGroup()">get_requirementgroup</button>
+      <button id="deleteRequirementGroup" class="button" onclick="deleteRequirementGroup()">delete_requirementgroup</button>    
+      <h1>Reservations</h1>
+      <p>When a <b>Reservation</b> is created, the associated <b>Bookable</b> and optionally assoicated
+          <b>Resources</b> are held for the associated <b>Customer</b>. Except when a <b>Bookable</b> allows
+          multiple seats, or when associated <b>Resources</b> will no longer be available during the
+          <b>Reservation's</b> time frame.</p>
+      <p><b>Reservations</b> are always associated with a <b>Customer</b>. If a <b>Reservation</b> is created
+          without an associated <b>Customer</b>, a <b>Customer</b> record will automatically be created using
+          the First Name, Last Name and email address submitted.</p>
+      <!-- <p><b>METHODS SUPPORTED</b>: create_reservation | get_reservation | get_reservations_in_range |
+          anonymize_reservations_in_range | reschedule_reservation</p> -->
+      <h2 class="tableh2">Methods Supported</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>METHOD</th>
+              <th>EXPLAINATION</th>
+          </tr>
+          <tr>
+              <td>create_reservation</td>
+              <td>Reservations hold the information of the customer and the entities required</td>
+          </tr>
+           <tr>
+              <td>get_reservation</td>
+              <td>Returns the reservation object associated to the id sent</td>
+          </tr>
+          <tr>
+              <td>get_reservations_in_range</td>
+              <td>Returns all the reservations within a given range</td>
+          </tr>
+          <tr>
+              <td>anonymize_reservations_in_range</td>
+              <td>Removes all customer information from all reservations within a given range</td>
+          </tr>
+          <tr>
+              <td>reschedule_reservation</td>
+              <td>Given a valid id and time range this call updates a reservation's start and end times</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Required Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>bookable</td>
+              <td>The id of the Bookable this reservation is booked through</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>end</td>
+              <td>A datetime string in YYYY-MM-DD HH:mm:ss format indicating when the reservation ends</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>provider</td>
+              <td>Subdomain of the provider you want to create a reservation on</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>start</td>
+              <td>A datetime string in YYYY-MM-DD HH:mm:ss format indicating when the reservation begins</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>whitelabel</td>
+              <td>The name of the marketplace to which this reservation belongs</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>user</td>
+              <td>The id of the user who booked this reservation (this will be automatically generated by the
+                  system if the optional customquestions object is included and contains questions for First
+                  Name, Last Name and Email, which are required on all Bookables)</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Optional Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>checkedin</td>
+              <td>A datetime string in YYYY-MM-DD HH:mm:ss format indicating when the customer checked in</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>checkedout</td>
+              <td>A datetime string in YYYY-MM-DD HH:mm:ss format indicating when the customer checked out
+              </td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>comments</td>
+              <td>Comments for internal use about this reservation</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>customquestions</td>
+              <td>A list of objects representing answer supplied to questions included on the customer form on
+                  the bookingsite</td>
+              <td>array of objects</td>
+          </tr>
+          <tr>
+              <td>discountcode</td>
+              <td>If a discountcode was redeemed in paying for this reservation, it should be noted here</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>expires</td>
+              <td>A datetime string in YYYY-MM-DD HH:mm:ss format indicating when the reservation need no
+                  longer be counted for calculating availability - i.e. when the reservation is no longer
+                  active. For the vast majority of cases, this will be the same as the required end parameter.
+                  This can be used to manually set a temporary hold on a reservation</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>email</td>
+              <td>Email of the user who booked this reservation</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>hold</td>
+              <td>The number of seconds this reservation is being held for. If specified, 'expires' will be
+                  automatically set to the datetime string corrsponding to this many seconds in the future
+                  from the time of booking</td>
+              <td>integer</td>
+          </tr>
+          <tr>
+              <td>location</td>
+              <td>Store lat long coordinates of the reservation, address type custom question response is
+                  converted to lat long</td>
+              <td>object</td>
+          </tr>
+          <tr>
+              <td>mobile_phone_number</td>
+              <td>Mobile number of the user who booked this reservation</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>paymentinformation</td>
+              <td>Store payment related information on the reservation</td>
+              <td>object</td>
+          </tr>
+          <tr>
+              <td>resources</td>
+              <td>A list of id of resources being booked for use during this Reservation</td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>status</td>
+              <td>A string indicating the current status of the Reservation. It is primarily used internally
+                  to mark a reservation as cancelled without deleting it from the database (for recordkeeping
+                  purposes). A reservation can be cancelled by simply setting this to 'cancelled'</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>seats</td>
+              <td>The number of seats the reservation accounts for</td>
+              <td>integer</td>
+          </tr>
+          <tr>
+              <td>value</td>
+              <td>Some resources have a 'value_capacity' score that, when exceeded by a reservation, disallows
+                  the use of that resource for the reservation in question. The 'value' component of a
+                  reservation is the number that is used to compare against the resource's 'value_capacity'.
+                  It is set in conjunction with user responses to form question. This property is for advanced
+                  use only</td>
+              <td>integer</td>
+          </tr>
+          <tr>
+              <td>waitlistposition</td>
+              <td>What position on the waitlist (if enabled for the bookable) this reservation occupies</td>
+              <td>integer</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Try some examples!</h2>
+      <button id="createReservation" class="button"
+          onclick="createReservation()">create_reservation</button>
+      <button id="getReservation" class="button"
+          onclick="getReservation()">get_reservation</button>
+      <button id="getReservationsInRange" class="button"
+          onclick="getReservationsInRange()">get_reservations_in_range</button>
+      <h1>Resources</h1>
+      <p><b>Resources</b> belong to a <b>Provider</b>, and may not be shared between <b>Providers</b> without
+          additional modification.</p>
+      <p>A <b>Resource</b> may be a person, space or equipment essential to a particular service or offering.
+          Your <b>Resource</b> inventory could consist of basketball courts in a gym, eye specialists in a
+          given clinic, or an inventory of bedrooms and apartments belonging to a property manager. You can
+          use <b>Resources</b> to represent any entity that must be available in order for a service to be
+          provider.</p>
+      <p>You can attach <b>Resources</b> with <b>Bookables</b>. You may choose whether to assign
+          <b>Resources</b> after a <b>Reservation</b> is made, auto-assign <b>Resources</b>, create groups of
+          <b>Resources</b>, and setup combinations of required <b>Resources</b>.</p>
+      <!-- <p><b>METHODS SUPPORTED</b>: create_resource | get_resource | get_resources | get_resources_for_provider |
+          add_resource_to_provider | remove_resource_from_provider | update_resource | delete_resource</p> -->
+      <h2 class="tableh2">Methods Supported</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>METHOD</th>
+              <th>EXPLAINATION</th>
+          </tr>
+          <tr>
+              <td>create_resource</td>
+              <td>Resources are the essential entities bookables need. Use cases include making a new resource to support an existing provider/bookable or making resources in conjunction with making a new provider/bookable</td>
+          </tr>
+          <tr>
+              <td>get_resource</td>
+              <td>Returns the resource object associated to the id sent</td>
+          </tr>
+          <tr>
+              <td>get_resources</td>
+              <td>Returns all resource objects for the current whitelabel</td>
+          </tr>
+          <tr>
+              <td>get_resources_for_provider</td>
+              <td>Returns all resource objects for the given provider</td>
+          </tr>
+          <tr>
+              <td>update_resource</td>
+              <td>Given a valid id and any other valid parameters this call updates the specified resource object</td>
+          </tr>
+          <tr>
+              <td>delete_resource</td>
+              <td>Given a valid id this call deletes the specified resource object</td>
+          </tr>
+          <tr>
+              <td>add_resource_to_provider</td>
+              <td>Associates a resource and a provider object</td>
+          </tr>
+          <tr>
+              <td>remove_resource_from_provider</td>
+              <td>Removes an association from a resource and a provider</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Required Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>provider</td>
+              <td>Subdomain of the provider you want to create a resource on</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>name</td>
+              <td>The name of the Resource to be displayed to end users</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Optional Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>active</td>
+              <td>Whether this Resource is available for booking</td>
+              <td>boolean</td>
+          </tr>
+          <tr>
+              <td>allowcustomerinvitations</td>
+              <td>Enables customers that book the resource to be added as attendees on calendar events created
+                  on 3rd party calendars services like google or outlook. The resource must be connected to a
+                  3rd party calendar service</td>
+              <td>boolean</td>
+          </tr>
+          <tr>
+              <td>capacity_mode</td>
+              <td></td>
+              <td>object</td>
+          </tr>
+          <tr>
+              <td>description</td>
+              <td>A description of the resource</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>location</td>
+              <td>Store lat long coordinates of the resource</td>
+              <td>object</td>
+          </tr>
+          <tr>
+              <td>newavailability</td>
+              <td>A list JSON objects each representing a chunk of the recurring weekly availability of this
+                  Resource. This includes 'startday' and 'endday' - each strings - which should be a day of
+                  the week ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday').
+                  Additionally, it should specify a 'starthour', 'startminute', 'startsecond', 'endhour',
+                  'endminute', 'endsecond' - all integers representing time on a 24-hour clock. (This is not
+                  strictly required to create a bookable, however it is an integral part of defining
+                  appointments. If not included, availability will default to 8am-5pm on weekdays.)</td>
+              <td>array of objects</td>
+          </tr>
+          <tr>
+              <td>phonenumber</td>
+              <td>Phone number associated to this resource</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>photo</td>
+              <td>Url of an image file of the resource</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>reservation_capacity</td>
+              <td>The total number of seats for overlapping reservations that can be booked on this resource.
+                  In the default case, this is equivalent to the total number of overlapping reservations that
+                  can be booked on this resource</td>
+              <td>integer</td>
+          </tr>
+          <tr>
+              <td>reservation_limits</td>
+              <td></td>
+              <td>boolean</td>
+          </tr>
+          <tr>
+              <td>slug</td>
+              <td>A user-defined unique identifier for this Resource</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>tags</td>
+              <td></td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>timezone</td>
+              <td>A string representing the time zone in which your resource is located</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>title</td>
+              <td></td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>url</td>
+              <td></td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>value_capacity</td>
+              <td>The total number of value points for overlapping reservations that can be booked on this
+                  resource</td>
+              <td>integer</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Try some examples!</h2>
+      <button id="createResource" class="button"
+          onclick="createResource()">create_resource</button>
+      <button id="getResource" class="button" onclick="getResource()">get_resource</button>
+      <button id="deleteResource" class="button"
+          onclick="deleteResource()">delete_resource</button>
+      <h1>Response Options</h1>
+      <p><b>Response Options</b> are how <b>Form Questions</b> are answered. A <b>Form</b> consists of <b>Form Questions</b> which are each answered via a <b>Response Option</b>. </p>
+      <!-- <p><b>METHODS SUPPORTED</b>: create_response_option | get_response_option | get_response_options | get_response_options_for_form_question |
+          get_response_options_for_provider | update_response_options | delete_response_options | add_response_option_to_form_question | remove_response_option_from_form_question</p> -->
+          <h2 class="tableh2">Methods Supported</h2>
+          <table class="highLevelTable">
+              <tr>
+                  <th>METHOD</th>
+                  <th>EXPLAINATION</th>
+              </tr>
+              <tr>
+                  <td>create_response_option</td>
+                  <td>Response options are how customers answer questions on forms. Use cases would be adding a new response option to a form question</td>
+              </tr>
+              <tr>
+                  <td>get_response_option</td>
+                  <td>Returns the response option object associated to the id sent</td>
+              </tr>
+              <tr>
+                  <td>get_response_options</td>
+                  <td>Returns all response option objects for the given whitelabel</td>
+              </tr>
+              <tr>
+                  <td>get_response_options_for_form_question</td>
+                  <td>Returns all response option objects for a given form question</td>
+              </tr>
+              <tr>
+                  <td>get_response_options_for_provider</td>
+                  <td>Returns all response option objects for a given provider</td>
+              </tr>
+              <tr>
+                  <td>update_response_options</td>
+                  <td>Given a valid id and any other valid parameters this call updates the specified response option object</td>
+              </tr>
+              <tr>
+                  <td>delete_response_options</td>
+                  <td>Given a valid id this call deletes the associated response option object</td>
+              </tr>
+              <tr>
+                  <td>add_response_option_to_form_question</td>
+                  <td>Associates a response option and a form question</td>
+              </tr>
+              <tr>
+                  <td>remove_response_option_from_form_question</td>
+                  <td>Removes an association from a response option and a form question</td>
+              </tr>
+          </table>
+          <h2 class="tableh2">Required Attributes</h2>
+          <table class="highLevelTable">
+              <tr>
+                  <th>ATTRIBUTE</th>
+                  <th>EXPLANATION</th>
+                  <th>TYPE</th>
+              </tr>
+              <tr>
+                  <td>name</td>
+                  <td>The name of the Response Option to be displayed to end users</td>
+                  <td>string</td>
+              </tr>
+          </table>
+          <h2 class="tableh2">Optional Attributes</h2>
+          <table class="highLevelTable">
+              <tr>
+                  <th>ATTRIBUTE</th>
+                  <th>EXPLANATION</th>
+                  <th>TYPE</th>
+              </tr>
+              <tr>
+                  <td>description</td>
+                  <td>The description of the Response Option to be displayed to end users</td>
+                  <td>string</td>
+              </tr>
+              <tr>
+                  <td>display_function</td>
+                  <td></td>
+                  <td>string</td>
+              </tr>
+              <tr>
+                  <td>displaytype</td>
+                  <td>determines how this should be displayed</td>
+                  <td>string</td>
+              </tr>
+              <tr>
+                  <td>imageurl</td>
+                  <td>optional url to display image</td>
+                  <td>string</td>
+              </tr>
+              <tr>
+                  <td>max</td>
+                  <td>maximum allowed value</td>
+                  <td>integer</td>
+              </tr>
+              <tr>
+                  <td>min</td>
+                  <td>minimum allowed value</td>
+                  <td>integer</td>
+              </tr>
+              <tr>
+                  <td>priceadjustment</td>
+                  <td>optional field for cases where the response has a simple price adjustment value (generally this will be handled by the function on the question rather than directly stated on the response_option)</td>
+                  <td>number</td>
+              </tr>
+              <tr>
+                  <td>prompt</td>
+                  <td></td>
+                  <td>string</td>
+              </tr>
+              <tr>
+                  <td>providers</td>
+                  <td>subdomains of the providers on which this response_option is visible for selection</td>
+                  <td>array of strings</td>
+              </tr>
+              <tr>
+                  <td>timeadjustment</td>
+                  <td>optional field for cases where the response has a simple time adjustment value (generally this will be handled by the function on the question rather than directly stated on the response_option)</td>
+                  <td>number</td>
+              </tr>
+              <tr>
+                  <td>value_function</td>
+                  <td>string to be evaluated to a javascript function that accepts a context object, modifies it based on its internal rules and the response selected/given, and returns the modified context object</td>
+                  <td>string</td>
+              </tr>
+      </table>
+      <h2 class="tableh2">Try some examples!</h2>
+      <button id="createResponseOption" class="button" onclick="createResponseOption()">create_response_option</button>
+      <button id="getResponseOption" class="button" onclick="getResponseOption()">get_response_option</button>
+      <button id="deleteResponseOption" class="button" onclick="deleteResponseOption()">delete_response_option</button>
+      <h1>Sections</h1>
+      <p><b>Sections</b> allow you to further break down a <b>Form</b>. <b>Sections</b> will help organize <b>Forms</b> for a better user experience.</p>
+      <!-- <p><b>METHODS SUPPORTED</b>: create_section | get_section | get_sections | get_sections_for_form | get_sections_for_provider | update_section | delete_section | add_section_to_form | remove_section_from_form</p> -->
+      <h2 class="tableh2">Methods Supported</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>METHOD</th>
+              <th>EXPLAINATION</th>
+          </tr>
+          <tr>
+              <td>create_section</td>
+              <td>Sections are for dividing up forms. Use cases are for when you want to organize your forms more or done in conjunction with making new forms</td>
+          </tr>
+          <tr>
+              <td>get_section</td>
+              <td>Returns the section object associated to the id sent</td>
+          </tr>
+          <tr>
+              <td>get_sections</td>
+              <td>Returns all section objects for a given whitelabel</td>
+          </tr>
+          <tr>
+              <td>get_sections_for_form</td>
+              <td>Returns all section objects for a given form</td>
+          </tr>
+          <tr>
+              <td>get_sections_for_provider</td>
+              <td>Returns all section objects for a given provider</td>
+          </tr>
+          <tr>
+              <td>update_section</td>
+              <td>Given a valid id and any other valid parameters this call updates the specified section</td>
+          </tr>
+          <tr>
+              <td>delete_section</td>
+              <td>Given a valid id this call deletes the specified section object</td>
+          </tr>
+          <tr>
+              <td>add_section_to_form</td>
+              <td>Associates a section and a form object</td>
+          </tr>
+          <tr>
+              <td>remove_section_from_form</td>
+              <td>Removes an association from a section and a form</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Required Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>name</td>
+              <td>The name of the Section to be displayed to end users</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Optional Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>description</td>
+              <td>description of the section</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>imageurl</td>
+              <td>link to a display image for the section</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>order</td>
+              <td>optional value that can be used to order display</td>
+              <td>integer</td>
+          </tr>
+          <tr>
+              <td>providers</td>
+              <td>subdomains of providers on which this section is visible for selection</td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>questions</td>
+              <td>list of form question ids associated with this section</td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>tags</td>
+              <td>strings that function as tags for display and other rule-based functionality purposes</td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>title</td>
+              <td>display title (for bookingsite use)</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Try some examples!</h2>
+      <button id="createSection" class="button" onclick="createSection()">create_section</button>
+      <button id="getSection" class="button" onclick="getSection()">get_section</button>
+      <button id="deleteSection" class="button" onclick="deleteSection()">delete_section</button>
+      <h1>Users</h1>
+      <p><b>Users</b> are the individuals who are able to access your <b>Marketplace</b> via the dashboard and
+          the API. <b>Users</b> can have one of several available roles, each of which give the user
+          permission to execute a different set of functions.</p>
+      <p><b>Admin Users</b> have full access to all functions within your <b>Marketplace</b>. <b>Provider
+              Users</b> are limited to a specified <b>Provider</b>. <b>Employee Users</b> are able to create
+          and modify <b>Reservations</b> for their associated <b>Provider</b>, but they are not able to create
+          or modify <b>Bookables</b> or <b>Resources</b>. <b>Emplotee Users</b> can optionally be associated
+          with a list of <b>Resources</b>. An <b>Employee User</b> who is associated with a single
+          <b>Resource</b> is assumed to be a <b>Resource User</b>. <b>Resource Users</b> can only create and
+          modify resercations for their <b>Resource</b> and edit the profile and availability of their
+          <b>Resource</b>.</p>
+      <!-- <p><b>METHODS SUPPORTED</b>: create_user | get_user | update_user | delete_user</p> -->
+      <h2 class="tableh2">Methods Supported</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>METHOD</th>
+              <th>EXPLAINATION</th>
+          </tr>
+          <tr>
+              <td>create_user</td>
+              <td>Used when making a new user</td>
+          </tr>
+          <tr>
+              <td>get_user</td>
+              <td>Returns the user object associated to the id sent</td>
+          </tr>
+          <tr>
+              <td>update_user</td>
+              <td>Given a valid id and any other valid parameters this call updates the specified user</td>
+          </tr>
+          <tr>
+              <td>delete_user</td>
+              <td>Given a valid id this call deletes the specified user object</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Required Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>firstname</td>
+              <td>The user's first name</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>lastname</td>
+              <td>The user's last name</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>email</td>
+              <td>The user's email address</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>password</td>
+              <td>The login password for the web interface</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>role</td>
+              <td>One of 'admin', 'provider', 'associate' or 'employee'. This specifies the level of access
+                  this user is granted</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>slug</td>
+              <td>A user-defined unique identifier for the user. This is also used as the login to the user
+                  interface. It defaults to the email address entered</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Required Attributes</h2>
+      <table class="highLevelTable">
+          <tr>
+              <th>ATTRIBUTE</th>
+              <th>EXPLANATION</th>
+              <th>TYPE</th>
+          </tr>
+          <tr>
+              <td>apikey</td>
+              <td>The unique API access key generated by Periodic for this user</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>avatar</td>
+              <td>A url pointing to an avatar for the user</td>
+              <td>url</td>
+          </tr>
+          <tr>
+              <td>address1</td>
+              <td>The second line of the user's contact address</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>address2</td>
+              <td>The second line of the user's contact address</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>city</td>
+              <td>The city associated with the user's contact address</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>networkid</td>
+              <td>An optional networkid associated with this account in a thrid-party integration</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>providers</td>
+              <td>The subdomains of the providers to which this user is granted access</td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>state</td>
+              <td>A state, provice, or other administrative region</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>resources</td>
+              <td>A list of the ids of resources this user is allowed to manage</td>
+              <td>array of strings</td>
+          </tr>
+          <tr>
+              <td>zip</td>
+              <td>A zip/postal code for the user</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>country</td>
+              <td>Country of the user</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>provider</td>
+              <td>The subdomain of the primary provider for this user (if applicable)</td>
+              <td>string</td>
+          </tr>
+          <tr>
+              <td>whitelabel</td>
+              <td>The name of the marketplace to which this user belongs</td>
+              <td>string</td>
+          </tr>
+      </table>
+      <h2 class="tableh2">Try some examples!</h2>
+      <button id="createUser" class="button" onclick="createUser()">create_user</button>
+      <button id="getUser" class="button" onclick="getUser()">get_user</button>
+      <button id="deleteUser" class="button" onclick="deleteUser()">delete_user</button>
+  </div>  
+</div>
+
